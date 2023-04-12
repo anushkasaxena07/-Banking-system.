@@ -1,0 +1,207 @@
+#include<stdio.h>
+#include<conio.h>
+#include<process.h>
+struct mybank
+{
+int acc_no,bal;
+int age;
+char name[20];
+int d,c,t;
+};
+int a,i=101,n;
+void creation(struct mybank b[]);
+void withdrawl(struct mybank b[],int);
+void deposit(struct mybank b[],int);
+void check_bal(struct mybank b[],int);
+void transfer(struct mybank b[],int);
+int transaction(struct mybank b[],int);
+int main()
+{
+struct mybank b[10];
+int choice;
+clrscr();
+printf("\n////////////////////////WELCOME TO MYBANK//////////////////////////////////////\n");
+printf("\nEnter the no. of account you want to create ");
+scanf("%d",&n);
+for(a=0;a<n;a++)
+{
+creation(b);
+}
+printf("\n*******************************************************************");
+do
+{
+	printf("\n1=> Check balance\n2=> withdrawal\n3=> Deposit\n4=> To Transfer Money\n5=> To Create Next Two Accounts\n6=> Account Transaction History\n7=> EXIT");
+	printf("\nenter choice (1-7)");
+	scanf("%d",&choice);
+	clrscr();
+	switch(choice)
+	{
+	case 1 :printf("\n\n*****************Account current balance***********************");
+		check_bal(b, n);
+		printf("\n*******************************************************************");
+		break;
+	case 2 :printf("\n\n*******************Withdrawal************************************");
+		withdrawl(b, n);
+		printf("\n*******************************************************************");
+		break;
+	case 3 :printf("\n\n********************Deposit***************************************");
+		deposit(b, n);
+		printf("\n***********************************************************************");
+		break;
+	case 4 :printf("\n\n***********************Transfer***************************************\n");
+		transfer(b, n);
+		printf("\n*************************************************************************");
+		break;
+	case 5 :main();
+		break;
+	case 6 :printf("\n\n**********************Transaction***************************************\n");
+		transaction(b, n);
+		printf("\n*************************************************************************");
+		break;
+	case 7 :exit(0);
+		break;
+	default :break;
+	}
+}
+while(choice!=8);
+return 0;
+}
+
+void creation(struct mybank b[])
+{
+int age;
+{
+printf("\n***********************CREATE ACCOUNT #%d**********************************",a+1);
+printf("\nYour account no. is : %d",i);
+b[a].acc_no=i;
+printf("\nEnter Your Age ");
+scanf("%d",&age);
+b[a].age=age;
+if(age>=18)
+{
+	printf("Enter Your Name ");
+	scanf("%s",&b[a].name);
+	printf("Your Initial Deposit is : 500");
+	b[a].bal=500;
+}
+else{
+printf("THIS BANK DOES NOT PROVIDE SERVICES TO THE CUSTOMERS AGED UNDER 18");
+    }
+}
+i++;
+}
+void withdrawl(struct mybank b[],int n)
+{
+int acc,amt;
+printf("\nEnter Your Account No. ");
+scanf("%d",&acc);
+for(a=0;a<n;a++)
+{
+if(acc==b[a].acc_no)
+   {
+   printf("Enter amount ");
+scanf("%d",&amt);
+b[a].d=amt;
+	if(amt<=b[a].bal)
+	{
+	    b[a].bal-=amt;
+	    printf("%d : is the remaining balance after debited",b[a].bal);
+	    printf("\n\n\tAmount is Sucessfully Withdrawn\n");
+		printf("\tCheck Balance For Confirmation\n");
+	    break;
+	}
+       else
+       printf("\ninsufficient balance");
+   }
+}
+}
+void deposit(struct mybank b[],int n)
+{
+int acc,am;
+printf("\nEnter account no. ");
+scanf("%d",&acc);
+for(a=0;a<n;a++)
+{
+   if(acc==b[a].acc_no)
+
+   {
+	printf("\nEnter amount ");
+	scanf("%d",&am);
+	b[a].c=am;
+	b[a].bal+=am;
+       printf("%d : is balance after credit",b[a].bal);
+       printf("\n\n\tAmount is Sucessfully Deposited\n");
+		printf("\tCheck Balance For Confirmation\n");
+   }
+}
+}
+void check_bal(struct mybank b[],int n)
+{
+int acc;
+printf("\nEnter accont no. ");
+scanf("%d",&acc);
+for(a=0;a<n;a++)
+{
+    if(acc==b[a].acc_no)
+    {
+     printf("\nYour accont no. is %d",b[a].acc_no);
+     printf("\nAccount Holders Age is %d",b[a].age);
+     printf("\nAccount Holder name is %s",b[a].name);
+     printf("\nACCOUNT BALANCE IS %d",b[a].bal);
+    }
+}
+}
+void transfer(struct mybank b[],int n)
+{
+int acc,amt;
+printf("Enter Your Account no. ");
+scanf("%d",&acc);
+for(a=0;a<n;a++)
+{
+     if(acc==b[a].acc_no)
+     {
+   printf("Enter amount ");
+scanf("%d",&amt);
+b[a].t=amt;
+	if(amt<=b[a].bal)
+	{
+	    b[a].bal-=amt;
+	    break;
+	}
+       else
+       printf("\nInsufficient balance");
+   }
+}
+printf("\nTransfer Money To Account no. ");
+scanf("%d",&acc);
+for(a=0;a<n;a++)
+{
+   if(acc==b[a].acc_no)
+
+   {
+	b[a].bal+=amt;
+       printf("%d : is transfered to the account",amt);
+       printf("\n\n\tAmount is Sucessfully Transfered\n");
+		printf("\tCheck Balance For Confirmation\n");
+   }
+}
+}
+int transaction(struct mybank b[],int n)
+{
+int acc;
+printf("\nEnter account no. ");
+scanf("%d",&acc);
+for(a=0;a<n;a++)
+{
+	if(acc==b[a].acc_no)
+	{
+	printf("%d is debited\n",b[a].d);
+	printf("%d is credited\n",b[a].c);
+	printf("%d is tranfered\n",b[a].t);
+	}
+}
+return 0;
+}
+
+
+
